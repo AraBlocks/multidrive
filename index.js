@@ -83,6 +83,11 @@ function multidrive (store, createArchive, closeArchive, cb) {
 
     createArchive(data, function (err, archive) {
       if (err) return cb(err)
+      if (archive instanceof Error) {
+        archives.push(archive)
+        return cb(null, archive)
+      }
+
       key = archive.key
       debug('archive created key=%s', key.toString('hex'))
 
